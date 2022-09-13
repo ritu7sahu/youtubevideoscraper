@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>Search Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Search</h1>
+
+    <div class="form">
+        <form action="/result" method="POST">
+            <div class='form-group group1'>
+                <label class="label">Please enter the number of videos for which you want all details eg. 5,10,50 etc</label>
+                <input type="number" name="no_of_videos" required class="form-control inputs" placeholder="No of videos details you want to fetch">
+            </div>
+            <div class="form-group group1">
+            <label class="label">Please enter the link of any channel eg. https://www.youtube.com/user/krishnaik06/videos</label>
+            <input type="text" name="content" required class="form-control inputs" placeholder="Youtuber video link">
+            </div>
+            <div class="form-group">
+                <input type="submit"   value="Search">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
