@@ -26,6 +26,13 @@ try:
 except Exception as e:
     print(e)
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+
 app = Flask(__name__)
 # ("route to display the home page")
 @app.route('/', methods=['GET'])
@@ -41,8 +48,8 @@ def index():
         # ("getting url from form after clicking on search button")
         url = request.form['content']
         videos_in_no = request.form['no_of_videos']
-        driver_path = r'https://github.com/ritu7sahu/youtubevideoscraper/blob/cebb8aecbe188deba9a8053f5dd8e6061aee2c92/chromedriver.exe'
-        driver = webdriver.Chrome(executable_path = driver_path)
+        #driver_path = r'https://github.com/ritu7sahu/youtubevideoscraper/blob/cebb8aecbe188deba9a8053f5dd8e6061aee2c92/chromedriver.exe'
+        #driver = webdriver.Chrome(executable_path = driver_path)
         # ("creating driver and accessing url in Chrome")
         driver.get(url)
         # ("Calling function to getAllVideosLinks")
