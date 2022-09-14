@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,jsonify
 import time
 import os
 import glob
@@ -55,7 +55,7 @@ def index():
         data = getAllDataFromDB()
         driver.close()
         # ('Rendering details data to Youtuber details Page')
-        return render_template("results.html",data=data['details'])
+        return render_template("results.html",data=jsonify(data['details']))
 
 
     else:
@@ -76,7 +76,7 @@ def get_comments():
             # ("rendering comments page to show all comments")
         except Exception as e:
             print(e)
-        return render_template("comments.html", data=comments)
+        return render_template("comments.html", data=jsonify(comments))
 
 
 def getAllDataFromDB():
