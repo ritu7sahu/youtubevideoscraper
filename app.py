@@ -41,7 +41,7 @@ def index():
         # ("getting url from form after clicking on search button")
         url = request.form['content']
         videos_in_no = request.form['no_of_videos']
-        driver_path = r'chromedriver.exe'
+        driver_path = r'https://github.com/ritu7sahu/youtubevideoscraper/blob/cebb8aecbe188deba9a8053f5dd8e6061aee2c92/chromedriver.exe'
         driver = webdriver.Chrome(executable_path = driver_path)
         # ("creating driver and accessing url in Chrome")
         driver.get(url)
