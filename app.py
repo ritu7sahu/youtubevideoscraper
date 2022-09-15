@@ -26,12 +26,12 @@ try:
 except Exception as e:
     print(e)
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
 
 app = Flask(__name__)
 # ("route to display the home page")
@@ -49,7 +49,7 @@ def index():
         url = request.form['content']
         videos_in_no = request.form['no_of_videos']
         #driver_path = r'https://github.com/ritu7sahu/youtubevideoscraper/blob/cebb8aecbe188deba9a8053f5dd8e6061aee2c92/chromedriver.exe'
-        #driver = webdriver.Chrome(executable_path = driver_path)
+        driver = webdriver.Chrome()
         # ("creating driver and accessing url in Chrome")
         driver.get(url)
         # ("Calling function to getAllVideosLinks")
@@ -63,7 +63,7 @@ def index():
         data = getAllDataFromDB()
         driver.close()
         # ('Rendering details data to Youtuber details Page')
-        return render_template("results.html",data=jsonify(data['details']))
+        return render_template("results.html",data=data['details'])
 
 
     else:
@@ -84,7 +84,7 @@ def get_comments():
             # ("rendering comments page to show all comments")
         except Exception as e:
             print(e)
-        return render_template("comments.html", data=jsonify(comments))
+        return render_template("comments.html", data=comments)
 
 
 def getAllDataFromDB():
@@ -101,6 +101,7 @@ def getAllDataFromDB():
 def getVideosLinks(driver,videos_in_no):
     # ("started function to get all videos links ")
     try:
+        time.sleep(3)
         content_section = driver.find_element_by_xpath('//*[@id="contents"]')
         driver.execute_script("arguments[0].scrollIntoView();", content_section)
         time.sleep(7)
